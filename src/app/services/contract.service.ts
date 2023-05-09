@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {  ethers } from 'ethers';
-import  EtherWallet  from '../../artifacts/contracts/EtherWallet.sol/EtherWallet.json';
+import  MultiSigWallet  from '../../artifacts/contracts/MultiSigWallet.sol/MultiSigWallet.json';
 import { BehaviorSubject } from 'rxjs';
 import { WalletService } from './wallet.service';
 import { AlchemyService } from './alchemy.service';
@@ -17,7 +17,7 @@ export class ContractService {
   response$= this.responseSubject.asObservable();
   provider = new ethers.providers.Web3Provider(window.ethereum);
   signer = this.provider.getSigner();
-  contract = new ethers.Contract(this.contractAddress, EtherWallet.abi, this.signer);
+  contract = new ethers.Contract(this.contractAddress, MultiSigWallet.abi, this.signer);
   
   constructor(
     private  walletService: WalletService,
@@ -29,7 +29,7 @@ export class ContractService {
 
   async getContractBallanceWithEther() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const contract = new ethers.Contract(this.contractAddress, EtherWallet.abi, provider);
+    const contract = new ethers.Contract(this.contractAddress, MultiSigWallet.abi, provider);
 
     this.ethBalanceSubject.next(ethers.utils.formatEther(await contract['balanceOf']()));
   }   

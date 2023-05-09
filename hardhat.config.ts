@@ -24,6 +24,7 @@ const config: HardhatUserConfig = {
     sources: "./contracts", 
     artifacts: "./src/artifacts",
   },
+  defaultNetwork: "hardhat",
   networks : {
     hardhat: {
       chainId: 1337
@@ -35,7 +36,7 @@ const config: HardhatUserConfig = {
     sepolia: {
       chainId: 11155111,
       url: `https://eth-sepolia.g.alchemy.com/v2/${API_URL}`, // this is my alchemy api key for sepolia network
-      accounts: [`0x${PRIVATE_KEY}`]// this is my seploia account private key
+    //  accounts: [`0x${PRIVATE_KEY}`]// this is my seploia account private key
      
     },
   },
