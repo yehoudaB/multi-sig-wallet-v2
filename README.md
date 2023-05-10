@@ -65,3 +65,40 @@ Before using multi-sig-wallet-v2, make sure you have the following prerequisites
 You are now ready to use the multi-sig-wallet-v2 project! You can interact with Ethereum through the web application and perform various operations using your connected Metamask wallet.
 
 Note: Remember that the local development network is for testing purposes and should not be used for production or real transactions on the Ethereum mainnet.
+
+
+## deploy contract to a network
+ you need to configure a network in hardhat config.ts
+
+
+
+ ```
+  let API_URL = process.env["API_URL"] ? process.env["API_URL"] : "";
+  let PRIVATE_KEY = process.env["PRIVATE_KEY"] ? process.env["PRIVATE_KEY"] : "";
+
+ ...
+ const config: HardhatUserConfig = {
+  ....
+   networks : {
+    sepolia: {
+      chainId: 11155111,
+      url: `https://eth-sepolia.g.alchemy.com/v2/${API_URL}`,
+      accounts: [`0x${PRIVATE_KEY}`]
+     
+    },
+ ```
+
+run this command :
+ ```
+ export API_URL='<your api key>'
+ export PRIVATE_KEY='<your private key>'
+```
+ 
+ then run
+```
+    npx hardhat run scripts/deploy.ts --network <your network>
+```
+
+
+
+

@@ -4,15 +4,13 @@ import  MultiSigWallet  from '../../artifacts/contracts/MultiSigWallet.sol/Multi
 import { BehaviorSubject, from } from 'rxjs';
 import { WalletService } from './wallet.service';
 import { AlchemyService } from './alchemy.service';
-import { WithdrawTx } from '../models/WithdrawTx';
-import { transition } from '@angular/animations';
-import { ContractError } from '../models/ContractError';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  private contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-  a = "";
+  private contractAddress = '0x049E85a32eD5328bf13eaC75f62Df81615D9e48d';
+  
   private ethBalanceSubject = new BehaviorSubject<string>('0');
   ethBalance$= this.ethBalanceSubject.asObservable();
 
@@ -27,8 +25,8 @@ export class ContractService {
   constructor(
     private  walletService: WalletService,
     private alchemyService: AlchemyService ) {
-     //this.getContractBallanceWithAlchemy(); //not working in localhost
-     this.getContractBallanceWithEther();
+     this.getContractBallanceWithAlchemy(); //not working in localhost
+     //this.getContractBallanceWithEther();
      this.getWithdrawTxs();
    }
 
@@ -50,8 +48,8 @@ export class ContractService {
       const transaction = await this.contract['deposit']({value: ethers.utils.parseEther(amount.toString())});
       await transaction.wait();
       await this.walletService.connectWalletWithAlchemy();
-      //await this.getContractBallanceWithAlchemy(); no working in localhost
-      await this.getContractBallanceWithEther();
+      await this.getContractBallanceWithAlchemy(); // no working in localhost
+     // await this.getContractBallanceWithEther();
       this.responseSubject.next( {reason: 'Deposit successful'});
     } catch (error) {
       console.log(error);
@@ -83,7 +81,8 @@ export class ContractService {
     const transaction = await  this.contract['approveWithdrawTx'](index);
     await transaction.wait();
     this.getWithdrawTxs();
-    this.getContractBallanceWithEther();
+    //this.getContractBallanceWithEther();
+    await this.getContractBallanceWithAlchemy();
     this.responseSubject.next( {reason: 'withdrawal approved'});
     }
     catch (error : any) {
