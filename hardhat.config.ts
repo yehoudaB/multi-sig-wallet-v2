@@ -34,8 +34,8 @@ const config: HardhatUserConfig = {
      // accounts: [`0x${process.env.PRIVATE_KEY}`]
     },
     sepolia: {
-      chainId: 11155111,
-      url: `https://eth-sepolia.g.alchemy.com/v2/${API_URL}`, // this is my alchemy api key for sepolia network
+    //  chainId: 11155111,
+     // url: `https://eth-sepolia.g.alchemy.com/v2/${API_URL}`, // this is my alchemy api key for sepolia network
     //  accounts: [`0x${PRIVATE_KEY}`]// this is my seploia account private key
      
     },

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { Data } from '@angular/router';
+import { WithdrawTx } from 'src/app/models/WithdrawTx';
 import { AlchemyService } from 'src/app/services/alchemy.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -10,7 +12,10 @@ import { WalletService } from 'src/app/services/wallet.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements  OnInit{
-  
+[x: string]: any;
+ 
+withdrawTxs: WithdrawTx[] = [];
+displayedColumns: string[] = ['to', 'amount', 'approvals', 'sent', 'action'];  
   constructor(
     public walletService: WalletService,
     public contractService: ContractService,
@@ -19,7 +24,6 @@ export class HomeComponent implements  OnInit{
     ) {}
 
   async ngOnInit(): Promise<void> {
-    
   }
 
   async onDeposit(amount: HTMLInputElement) {
@@ -37,4 +41,10 @@ export class HomeComponent implements  OnInit{
 
   }
 
+  async approveWithdraw(index : number) {
+    this.contractService.approveWithdraw(index);
+  }
+
 }
+
+
